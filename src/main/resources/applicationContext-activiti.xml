@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+	      http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+	    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd">
+
+    <!--加载activiti引擎-->
+    <bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="databaseSchemaUpdate" value="true"/>
+        <property name="jobExecutorActivate" value="true"/>
+    </bean>
+
+    <!--引擎-->
+    <bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean">
+        <property name="processEngineConfiguration" ref="processEngineConfiguration"/>
+    </bean>
+
+    <!--activiti各种服务接口-->
+    <!--流程仓库Service，用于管理流程仓库，例如部署、删除、读取流程资源-->
+    <bean id="repositoryService" factory-bean="processEngine" factory-method="getRepositoryService"/>
+    <!--身份Service，用于管理和查询用户、组之间的关系-->
+    <bean id="identityService" factory-bean="processEngine" factory-method="getIdentityService"/>
+    <!--运行时Service，可以也拿过来处理所有正在运行状态的流程实例、任务等-->
+    <bean id="runtimeService" factory-bean="processEngine" factory-method="getRuntimeService"/>
+    <!--任务Service，用于管理和查询任务，例如签收、办理、指派等-->
+    <bean id="taskService" factory-bean="processEngine" factory-method="getTaskService"/>
+    <!--表单Service，用于读取流程、任务相关的表单数据-->
+    <bean id="formService" factory-bean="processEngine" factory-method="getFormService"/>
+    <!--历史Service，用于查询所有历史数据，例如流程实例、任务、活动、变量、附件-->
+    <bean id="historyService" factory-bean="processEngine" factory-method="getHistoryService"/>
+    <!--引擎管理Service，和具体业务无关，主要可以查询引擎配置、数据库、作业等-->
+    <bean id="managementService" factory-bean="processEngine" factory-method="getManagementService"/>
+
+</beans>

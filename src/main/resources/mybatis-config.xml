@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org/DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+
+<configuration>
+    <settings>
+        <!--这个配置使全局的映射器启用或禁用 缓存。-->
+        <setting name="cacheEnabled" value="true" />
+        <!--全局启用或禁用延迟加载。当禁用时, 所有关联对象都会即时加载。-->
+        <!--<setting name="lazyLoadingEnabled" value="true" />-->
+        <!--当启用时, 有延迟加载属性的对象在被 调用时将会完全加载任意属性。否则, 每种属性将会按需要加载。-->
+       <!-- <setting name="aggressiveLazyLoading" value="true"/>-->
+        <!--允许或不允许多种结果集从一个单独 的语句中返回-->
+        <setting name="multipleResultSetsEnabled" value="true" />
+        <!--使用列标签代替列名-->
+        <setting name="useColumnLabel" value="true" />
+        <!--允许 JDBC 支持生成的键。-->
+        <setting name="useGeneratedKeys" value="false" />
+        <!--指定 MyBatis 如何自动映射列到字段/ 属性。PARTIAL 只会自动映射简单, 没有嵌套的结果。FULL 会自动映射任 意复杂的结果(-->
+        <setting name="autoMappingBehavior" value="PARTIAL" />
+        <!--配置默认的执行器。SIMPLE 执行器没 有什么特别之处。REUSE 执行器重用 预处理语句。BATCH 执行器重用语句 和批量更新-->
+        <setting name="defaultExecutorType" value="SIMPLE" />
+        <!--设置超时时间, 它决定驱动等待一个数 据库响应的时间。-->
+        <setting name="defaultStatementTimeout" value="25" />
+        <!--允许使用rowbounds嵌套语句-->
+        <setting name="safeRowBoundsEnabled" value="false" />
+        <!--可以从经典的数据库列的名称a_column骆驼案例经典java属性名称列自动映射-->
+        <setting name="mapUnderscoreToCamelCase" value="true" />
+        <!---->
+        <!--<setting name="localCacheScope" value="SESSION" />-->
+        <!--指定空值类型时，没有具体的JDBC JDBC类型提供了参数。一些司机需要指定列的JDBC类型也与一般的价值观如空，VARCHAR或其他。-->
+        <!--<setting name="jdbcTypeForNull" value="OTHER" />-->
+        <!--指定对象的方法触发延迟加载-->
+       <!-- <setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString" />-->
+    </settings>
+
+</configuration>
