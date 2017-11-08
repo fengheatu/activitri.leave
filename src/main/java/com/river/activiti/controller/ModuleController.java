@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/model")
@@ -26,8 +27,7 @@ public class ModuleController {
 	private RepositoryService repositoryService;
 	
 	@RequestMapping(value = "create")
-	  public void create(@RequestParam("name") String name, @RequestParam("key") String key, @RequestParam("description") String description,
-                         HttpServletRequest request, HttpServletResponse response) {
+	  public void create(HttpServletRequest request, HttpServletResponse response) {
 	    try {
 	      ObjectMapper objectMapper = new ObjectMapper();
 	      ObjectNode editorNode = objectMapper.createObjectNode();
@@ -39,13 +39,9 @@ public class ModuleController {
 	      Model modelData = repositoryService.newModel();
 	 
 	      ObjectNode modelObjectNode = objectMapper.createObjectNode();
-	      modelObjectNode.put(ModelDataJsonConstants.MODEL_NAME, name);
 	      modelObjectNode.put(ModelDataJsonConstants.MODEL_REVISION, 1);
-	      description = StringUtils.defaultString(description);
-	      modelObjectNode.put(ModelDataJsonConstants.MODEL_DESCRIPTION, description);
 	      modelData.setMetaInfo(modelObjectNode.toString());
-	      modelData.setName(name);
-	      modelData.setKey(StringUtils.defaultString(key));
+	      modelData.setKey(StringUtils.defaultString(UUID.randomUUID().toString()));
 	 
 	      repositoryService.saveModel(modelData);
 	      repositoryService.addModelEditorSource(modelData.getId(), editorNode.toString().getBytes("utf-8"));
