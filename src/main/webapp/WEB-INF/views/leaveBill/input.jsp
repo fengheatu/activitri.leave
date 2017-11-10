@@ -35,9 +35,8 @@
 		    	<div align="left" class="STYLE21">
 			 		<input type="hidden" name="id"/>
 			 		<input type="hidden" name="user.id"/>
-			 		请假天数:<input type="text" name="days" style="width: 200px;"/><br/>
-			 		请假原因:<input type="text" name="content" style="width: 800px;"/><br/>
-			 		备&emsp;&emsp;注:<textarea name="remark" cols="50" rows="5"></textarea><br/>
+			 		请假天数:<input type="text" name="leaveDays" style="width: 200px;"/><br/>
+			 		请假原因:<input type="text" name="leaveReason" style="width: 800px;"/><br/>
 			 		<input type="submit" value="提交" class="button_ok"/>
 				</div>
 		    </td>

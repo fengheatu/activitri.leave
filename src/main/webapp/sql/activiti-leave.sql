@@ -46,7 +46,7 @@ CREATE TABLE `leave` (
   `user_id` bigint(20) NOT NULL COMMENT '请假人id',
   `leave_reason` varchar(255) NOT NULL COMMENT '请假理由',
   `leave_days` int(3) NOT NULL COMMENT '请假天数',
-  `is_pass` tinyint(1) NOT NULL DEFAULT '0' COMMENT '假单是否审批通过 0-未通过 1-通过',
+  `status` int(4) NOT NULL DEFAULT '0' COMMENT '假单是否审批通过 0-未提交 1-审批中 2-通过 3-审批拒接',
   `start_time` datetime NOT NULL COMMENT '请假开始时间',
   `end_time` datetime NOT NULL COMMENT '请假结束时间',
   `create_by` bigint(20) NOT NULL COMMENT '创建者',
