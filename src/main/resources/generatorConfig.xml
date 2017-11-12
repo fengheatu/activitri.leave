@@ -4,7 +4,7 @@
 <generatorConfiguration>
     <!--数据库驱动jar -->
     <classPathEntry
-            location="D:\develop\repo-zg\mysql\mysql-connector-java\5.1.43\mysql-connector-java-5.1.43.jar"></classPathEntry>
+            location="D:\dev\mysql\mysql-connector-java\5.1.44\mysql-connector-java-5.1.44.jar"></classPathEntry>
 
     <context id="common" targetRuntime="MyBatis3">
 
@@ -46,24 +46,17 @@
 
         <!-- 配置不生成Exmaple文件 -->
         <!--对应数据库表 mysql可以加入主键自增 字段命名 忽略某字段等-->
-        <table tableName="accraditation_record" domainObjectName="AccraditationRecord"
+        <table tableName="employee" domainObjectName="Employee"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
         </table>
 
-        <table tableName="leave" domainObjectName="Leave"
+        <table tableName="leave_bill" domainObjectName="LeaveBill"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
         </table>
-
-        <table tableName="user" domainObjectName="User"
-               enableCountByExample="false" enableUpdateByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false">
-        </table>
-
 
     </context>
 </generatorConfiguration>

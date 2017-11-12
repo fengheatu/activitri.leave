@@ -88,7 +88,7 @@ public class ModelSaveRestResource implements ModelDataJsonConstants {
             BpmnModel model2 = new BpmnJsonConverter().convertToBpmnModel(modelNode);
             bpmnBytes = new BpmnXMLConverter().convertToXML(model2);
 
-            String processName = modelData.getName() + ".bpmn20.bpmn";
+            String processName = modelData.getName() + ".bpmn";
 
             //部署流程
             Deployment deployment = repositoryService.createDeployment()

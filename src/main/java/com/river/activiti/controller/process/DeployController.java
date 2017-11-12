@@ -26,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
+import javax.jws.WebParam;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -64,6 +65,9 @@ public class DeployController {
      */
     @RequestMapping("list")
     public ModelAndView  deployList(ModelAndView modelAndView) {
+        List<Deployment> deployments = repositoryService
+                .createDeploymentQuery().list();
+        modelAndView.addObject("deployments",deployments);
         List<ProcessDefinition> list = repositoryService.createProcessDefinitionQuery().list();
         modelAndView.addObject("processDefinitions",list);
         modelAndView.setViewName("workflow/workflow");
@@ -71,24 +75,23 @@ public class DeployController {
     }
 
     /**
-     *
-     * @param response
-     * @param modelAndView
+     * 删除流程定义
      * @param deploymentId
-     * @param imageName
+     * @param modelAndView
      * @return
      */
-    @RequestMapping("/imageView")
-    public ModelAndView imageView(HttpServletResponse response, ModelAndView modelAndView, String deploymentId, String imageName) {
-        modelAndView.addObject("deploymentId",deploymentId);
-        modelAndView.addObject("imageName",imageName);
-        modelAndView.setViewName("workflow/image");
+    @RequestMapping("/delete")
+    public ModelAndView delete(String deploymentId,ModelAndView modelAndView) {
+        repositoryService.deleteDeployment(deploymentId,true);
+        modelAndView.setViewName("workflow/workflow");
         return modelAndView;
     }
 
+
     /**
      *
-     * @param response
+     * @param deploymentId
+     * @param imageName
      * @param request
      * @param deploymentId
      * @param imageName

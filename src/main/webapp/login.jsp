@@ -16,7 +16,7 @@
 	</script>
 </head>
 <body style="text-align:center;">
-	<form action="/user/login" method="post">
+	<form action="/employee/login" method="post">
 		<table width="100%"  height="100%" border="0" cellspacing="0" cellpadding="0">
 		  <tr>
 		    <td bgcolor="#1075b1">&nbsp;</td>
@@ -35,7 +35,7 @@
 		                <td width="55" height="24" valign="bottom"><div align="right"><span class="STYLE3">用户名</span></div></td>
 		                <td width="10" valign="bottom">&nbsp;</td>
 		                <td height="24" colspan="2" valign="bottom">
-		                	<select name="userId">
+		                	<select name="id">
 		                		<option value="1">张三</option>
 		                		<option value="2">李四</option>
 		                		<option value="3">王五</option>

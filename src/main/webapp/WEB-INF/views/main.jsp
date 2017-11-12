@@ -12,10 +12,10 @@
 		</body>
 	</noframes>
 	
-	<frame name="top" src="/user/top" scrolling="No" noresize="noresize" >
+	<frame name="top" src="/employee/top" scrolling="No" noresize="noresize" >
 	<frameset cols="150,*">
-		 <frame name="left" src="/user/left" scrolling="No" noresize="noresize" >
-		 <frame src="/user/welcome" name="main" title="mainframe" scrolling="Yes" noresize="noresize"  />
+		 <frame name="left" src="/employee/left" scrolling="No" noresize="noresize" >
+		 <frame src="/employee/welcome" name="main" title="mainframe" scrolling="Yes" noresize="noresize"  />
 	</frameset>
 </frameset>
 

@@ -15,7 +15,7 @@
 		          <tr>
 		            <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
 		              <tr>
-		                <td width="6%" height="19" valign="bottom"><div align="center"><img src="${pageContext.request.contextPath }/images/tb.gif" width="14" height="14" /></div></td>
+		                <td width="6%" height="19" valign="bottom"><div align="center"><img src="/images/tb.gif" width="14" height="14" /></div></td>
 		                <td width="94%" valign="bottom"><span class="STYLE1">请假申请列表列表</span></td>
 		              </tr>
 		            </table></td>
@@ -28,7 +28,7 @@
 		  </tr>
 		  <tr>
 		        <td height="20" bgcolor="#FFFFFF" class="STYLE10" colspan="8"><div align="left">
-					<a href="${pageContext.request.contextPath }/leaveBillAction_input.action">添加请假申请</a>
+					<a href="/leave/addView">添加请假申请</a>
 				</div></td>
 		  </tr> 
 		  <tr>
@@ -43,59 +43,48 @@
 		        <td width="5%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">请假状态</span></div></td>
 		        <td width="25%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">操作</span></div></td>
 		      </tr>
+				<c:forEach var="leave" items="${leaveBills}" >
 		        <tr>
-			        <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="center">18</div></td>
-			        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">范冰冰</div></td>
-			        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">3</div></td>
-			        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">病假</div></td>
-			        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">发烧</div></td>
-			        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">2014-01-05 16:26:13</div></td>
+			        <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="center">${leave.id}</div></td>
+			        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">${employee.name}</div></td>
+			        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">${leave.days}</div></td>
+			        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">${leave.content}</div></td>
+			        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">${leave.remark}</div></td>
+			        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">${leave.leaveDate}</div></td>
 			        <td height="20" bgcolor="#FFFFFF" class="STYLE19">
 			        	<div align="center">
+							<c:if test="${leave.state == 0}">
 			 					初始录入
+							</c:if>
+							<c:if test="${leave.state == 1}">
+								初审核中
+							</c:if>
+							<c:if test="${leave.state == 2}">
+								初审核完成
+							</c:if>
 		            	</div>
 		            </td>
 			        <td height="20" bgcolor="#FFFFFF"><div align="center" class="STYLE21">
-			        	<a href="${pageContext.request.contextPath }/leaveBillAction_input.action?id=1" >修改</a>
-						<a href="leaveBillAction_delete.action?id=1" >删除</a>
-						<a href="${pageContext.request.contextPath }/workflowAction_startProcess.action?id=1" >申请请假</a>
+						<c:if test="${leave.state == 0}">
+							<a href="/leave/modify?id=${leave.id}" >修改</a>
+							<a href="/leave/delete?id=${leave.id}" >删除</a>
+							<a href="/leave/startProcess?id=${leave.id}" >申请请假</a>
+						</c:if>
+
+						<c:if test="${leave.state == 1}">
+							<a href="/leave/view?id=${leave.id}" >查看申请记录</a>
+
+						</c:if>
+
+						<c:if test="${leave.state == 2}">
+							<a href="/leave/delete?id=${leave.id}" >删除</a>
+							<a href="/leave/view?id=${leave.id}" >查看申请记录</a>
+						</c:if>
+
 					</div></td>
-			    </tr> 
-			     <tr>
-			        <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="center">19</div></td>
-			        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">范冰冰</div></td>
-			        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">4</div></td>
-			        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">事假</div></td>
-			        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">旅游</div></td>
-			        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">2014-01-08 10:11:11</div></td>
-			        <td height="20" bgcolor="#FFFFFF" class="STYLE19">
-			        	<div align="center">
-			 					审批中
-		            	</div>
-		            </td>
-			        <td height="20" bgcolor="#FFFFFF"><div align="center" class="STYLE21">
-			        	
-			        </div></td>
-			    </tr> 
-			    <tr>
-			        <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="center">20</div></td>
-			        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">范冰冰</div></td>
-			        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">5</div></td>
-			        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">事假</div></td>
-			        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">拍戏</div></td>
-			        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">2014-01-12 13:22:11</div></td>
-			        <td height="20" bgcolor="#FFFFFF" class="STYLE19">
-			        	<div align="center">
-			 					审核通过
-		            	</div>
-		            </td>
-			        <td height="20" bgcolor="#FFFFFF"><div align="center" class="STYLE21">
-			        	<a href="${pageContext.request.contextPath }/leaveBillAction_input.action?id=1" >修改</a>
-						<a href="leaveBillAction_delete.action?id=1" >删除</a>
-						<a href="${pageContext.request.contextPath }/workflowAction_viewHisComment.action?id=1" >查看审核记录</a>
-			        </div></td>
-			    </tr> 
-		      
+			    </tr>
+			    </tr>
+				</c:forEach>
 		    </table></td>
 		  </tr>
 	</table>

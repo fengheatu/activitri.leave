@@ -1,82 +1,19 @@
-/*
-Navicat MySQL Data Transfer
-
-Source Server         : localhost_3306
-Source Server Version : 50527
-Source Host           : localhost:3306
-Source Database       : activiti-leave
-
-Target Server Type    : MYSQL
-Target Server Version : 50527
-File Encoding         : 65001
-
-Date: 2017-11-08 10:54:59
-*/
-
-SET FOREIGN_KEY_CHECKS=0;
-
--- ----------------------------
--- Table structure for accraditation_record
--- ----------------------------
-DROP TABLE IF EXISTS `accraditation_record`;
-CREATE TABLE `accraditation_record` (
-  `id` bigint(20) NOT NULL,
-  `leave_id` bigint(20) NOT NULL COMMENT '假单id',
-  `name` varchar(50) NOT NULL COMMENT '审批人',
-  `accraditation_opinion` varchar(255) DEFAULT NULL COMMENT '审批意见',
-  `is_agree` tinyint(4) NOT NULL COMMENT '是否同意 0-不同意 1-同意',
-  `create_by` datetime NOT NULL COMMENT '创建者',
-  `update_by` datetime NOT NULL COMMENT '更新者',
-  `gmt_create` datetime NOT NULL COMMENT '创建时间',
-  `gmt_modified` datetime NOT NULL COMMENT '更新时间',
-  `is_delete` tinyint(4) NOT NULL COMMENT '逻辑删除标志，0-未删除，1-已删除',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='假单审批记录';
-
--- ----------------------------
--- Records of accraditation_record
--- ----------------------------
-
--- ----------------------------
--- Table structure for leave
--- ----------------------------
-DROP TABLE IF EXISTS `leave`;
-CREATE TABLE `leave` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '假单id',
-  `user_id` bigint(20) NOT NULL COMMENT '请假人id',
-  `leave_reason` varchar(255) NOT NULL COMMENT '请假理由',
-  `leave_days` int(3) NOT NULL COMMENT '请假天数',
-  `status` int(4) NOT NULL DEFAULT '0' COMMENT '假单是否审批通过 0-未提交 1-审批中 2-通过 3-审批拒接',
-  `start_time` datetime NOT NULL COMMENT '请假开始时间',
-  `end_time` datetime NOT NULL COMMENT '请假结束时间',
-  `create_by` bigint(20) NOT NULL COMMENT '创建者',
-  `update_by` bigint(20) NOT NULL COMMENT '更新者',
-  `gmt_create` datetime NOT NULL COMMENT '创建时间',
-  `gmt_modified` datetime NOT NULL COMMENT '更新时间',
-  `is_delete` tinyint(4) NOT NULL DEFAULT '0' COMMENT '逻辑删除标志，0-未删除，1-已删除',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='请假单';
-
--- ----------------------------
--- Records of leave
--- ----------------------------
-
--- ----------------------------
--- Table structure for user
--- ----------------------------
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user` (
+CREATE TABLE `employee` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `username` varchar(50) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `create_by` bigint(20) NOT NULL,
-  `update_by` bigint(20) NOT NULL,
-  `gmt_create` datetime NOT NULL,
-  `gmt_modified` datetime NOT NULL,
-  `is_delete` tinyint(4) NOT NULL DEFAULT '0',
+  `name` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `role` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统用户';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
--- ----------------------------
--- Records of user
--- ----------------------------
+CREATE TABLE `leave_bill` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `days` int(11) DEFAULT NULL,
+  `content` varchar(255) DEFAULT NULL,
+  `leave_date` datetime DEFAULT NULL,
+  `remark` varchar(255) DEFAULT NULL COMMENT '备注',
+  `user_id` bigint(20) DEFAULT NULL,
+  `state` int(4) DEFAULT NULL COMMENT ' 0初始录入,1.开始审批,2为审批完成',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;

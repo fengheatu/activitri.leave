@@ -101,24 +101,9 @@ a {text-decoration:none;color:black}
             <tr>
               <td width="33" height="28"><img src="/images/main_52.gif" width="28" height="28"></td>
               <td width="99"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-                  <tr>
-                    <td height="23" class="STYLE4" style="cursor:hand" onMouseOver="this.style.backgroundImage='url(/images/tab_bg.gif)';this.style.borderStyle='solid';this.style.borderWidth='1';borderColor='#adb9c2'; "onmouseout="this.style.backgroundImage='url()';this.style.borderStyle='none'">
-                    	<a href="/leave/leaveView" target="main">假期申请</a>
-                    </td>
-                  </tr>
-              </table></td>
-            </tr>
-          </table></td>
-        </tr>
-
-        <tr>
-          <td height="38"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-            <tr>
-              <td width="33" height="28"><img src="/images/main_52.gif" width="28" height="28"></td>
-              <td width="99"><table width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tr>
                   <td height="23" class="STYLE4" style="cursor:hand" onMouseOver="this.style.backgroundImage='url(/images/tab_bg.gif)';this.style.borderStyle='solid';this.style.borderWidth='1';borderColor='#adb9c2'; "onmouseout="this.style.backgroundImage='url()';this.style.borderStyle='none'">
-                    <a href="leaveBillAction_home.action" target="main">申请列表</a>
+                    <a href="/leave/list" target="main">请假管理</a>
                   </td>
                 </tr>
               </table></td>

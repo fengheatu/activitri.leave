@@ -1,7 +1,7 @@
 package com.river.activiti.controller.user;
 
-import com.river.activiti.model.pojo.User;
-import com.river.activiti.service.UserService;
+import com.river.activiti.model.pojo.Employee;
+import com.river.activiti.service.EmployeeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * @author: he.feng
@@ -16,26 +18,37 @@ import javax.servlet.http.HttpServletRequest;
  * @desc:
  **/
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/employee")
 public class LoginController {
 
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
+
     @Resource
-    private UserService userService;
+    private EmployeeService employeeService;
+
 
 
     /**
      *登录
-     * @param userId
+     * @param id
      * @return
      */
     @RequestMapping("login")
-    public String login(Long userId, HttpServletRequest request) {
-        logger.info("userId: " + userId);
-        User user = userService.findUserById(userId);
-        request.getSession().setAttribute("user",user);
+    public String login(Long id, HttpServletRequest request) {
+        Employee employee = employeeService.findEmployeeById(id);
+        request.getSession().setAttribute("employee",employee);
         return "main";
+    }
+
+    @RequestMapping("loginout")
+    public void loginOut(HttpServletRequest request, HttpServletResponse response) {
+        request.getSession().removeAttribute("employee");
+        try {
+            response.sendRedirect("../login.jsp");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

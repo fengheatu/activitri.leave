@@ -34,14 +34,17 @@
 		        <td width="20%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">发布时间</span></div></td>
 		        <td width="10%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">操作</span></div></td>
 		      </tr>
+
+				<c:forEach var="e" items="${deployments}">
 		        <tr>
-			        <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="center">1529</div></td>
-			        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">请假流程最新</div></td>
-			        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">2014-02-08</div></td>
+			        <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="center">${e.id}</div></td>
+			        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">${e.name}</div></td>
+			        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">${e.deploymentTime}</div></td>
 			        <td height="20" bgcolor="#FFFFFF"><div align="center" class="STYLE21">
-			        	<a href="workflowAction_delDeployment.action?deploymentId=1">删除</a>
+			        	<a href="/deploy/delete?deploymentId=${e.id}">删除</a>
 			        </div></td>
-			    </tr> 
+			    </tr>
+				</c:forEach>
 		      
 		    </table></td>
 		  </tr>
@@ -89,7 +92,7 @@
 			        <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="center">${p.diagramResourceName}</div></td>
 			        <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="center">${p.deploymentId}</div></td>
 			        <td height="20" bgcolor="#FFFFFF"><div align="center" class="STYLE21">
-			        	<a target="main" href="/deploy/imageView?deploymentId=${p.deploymentId }&imageName=${p.diagramResourceName}">查看流程图</a>
+			        	<a target="_blank" href="/deploy/showImage?deploymentId=${p.deploymentId }&imageName=${p.diagramResourceName}">查看流程图</a>
 				 	</div></td>
 			    </tr>
 				</c:forEach>

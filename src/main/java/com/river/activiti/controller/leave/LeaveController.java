@@ -1,12 +1,14 @@
 package com.river.activiti.controller.leave;
 
-import com.river.activiti.model.pojo.Leave;
-import com.river.activiti.model.pojo.User;
-import com.river.activiti.service.LeaveService;
+import com.river.activiti.dao.mapper.LeaveBillMapper;
+import com.river.activiti.model.pojo.Employee;
+import com.river.activiti.model.pojo.LeaveBill;
+import com.river.activiti.service.LeaveBillService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.repository.ProcessDefinition;
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -38,50 +40,66 @@ public class LeaveController {
     @Resource
     private TaskService taskService;
 
+
     @Resource
-    private LeaveService leaveService;
+    private LeaveBillService leaveBillService;
 
     /**
      *
      * @return
      */
-    @RequestMapping("/leaveView")
+    @RequestMapping("/addView")
     public ModelAndView leaveView(ModelAndView modelAndView) {
-        //获取最新的请假流程
-        List<ProcessDefinition> list = repositoryService.createProcessDefinitionQuery()
-                .processDefinitionKey("leave")
-                .orderByProcessDefinitionVersion().asc()
-                .list();
-        Map<String,ProcessDefinition> map = new LinkedHashMap<String,ProcessDefinition>();
-        for(ProcessDefinition pd : list) {
-            map.put(pd.getKey(),pd);
-        }
-        List<ProcessDefinition> list1 = (List<ProcessDefinition>) map.values();
-        modelAndView.addObject("processDefinitions",list1);
         modelAndView.setViewName("leaveBill/input");
         return modelAndView;
     }
 
     /**
-     * 请假
+     *
      * @param request
-     * @param leave
+     * @param modelAndView
+     * @return
+     */
+    @RequestMapping("/list")
+    public ModelAndView list(HttpServletRequest request,ModelAndView modelAndView) {
+        Employee employee = (Employee) request.getSession().getAttribute("employee");
+        if (employee == null){
+            throw new RuntimeException("没登录");
+        }
+        List<LeaveBill> leaveBills = leaveBillService.findLeaveBillByUserId(employee.getId());
+        modelAndView.addObject("leaveBills",leaveBills);
+        modelAndView.setViewName("leaveBill/list");
+        return modelAndView;
+    }
+
+    /**
+     *
+     * @param request
+     * @param modelAndView
+     * @param leaveBill
      * @return
      */
     @RequestMapping("/add")
-    @ResponseBody
-    public String leave(HttpServletRequest request, Leave leave) {
-        User user = (User) request.getAttribute("user");
-        Long userId = user.getId();
-        leave.setCreateBy(userId);
-        leave.setUpdateBy(userId);
-        Date date = new Date();
-        leave.setEndTime(date);
-        leave.setGmtCreate(date);
-        leave.setGmtModified(date);
-        leave.setStartTime(date);
-        leave.setStatus(1);
-        leaveService.add(leave);
-        return "leaveBill/input";
+    public ModelAndView  add(HttpServletRequest request,ModelAndView modelAndView,LeaveBill leaveBill) {
+    Employee employee = (Employee) request.getSession().getAttribute("employee");
+    leaveBill.setState(0);
+    leaveBill.setUserId(employee.getId());
+    leaveBillService.addLeaveBill(leaveBill);
+    modelAndView.addObject("leaveBills",leaveBillService.findLeaveBillByUserId(employee.getId()));
+    modelAndView.setViewName("leaveBill/list");
+    return modelAndView;
     }
+
+    @RequestMapping("/startProcess")
+    public ModelAndView startProcess(HttpServletRequest request,ModelAndView modelAndView,Long id ){
+        Employee employee = (Employee) request.getSession().getAttribute("employee");
+        LeaveBill leaveBill = new LeaveBill();
+        leaveBill.setId(id);
+        leaveBill.setState(1);
+        leaveBill.setUserId(employee.getId());
+        leaveBillService.startProcess(leaveBill);
+        modelAndView.addObject("leaveBills",leaveBillService.findLeaveBillByUserId(employee.getId()));
+        modelAndView.setViewName("leaveBill/list");
+    }
+
 }
