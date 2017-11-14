@@ -15,7 +15,7 @@
 		          <tr>
 		            <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
 		              <tr>
-		                <td width="6%" height="19" valign="bottom"><div align="center"><img src="${pageContext.request.contextPath }/images/tb.gif" width="14" height="14" /></div></td>
+		                <td width="6%" height="19" valign="bottom"><div align="center"><img src="/images/tb.gif" width="14" height="14" /></div></td>
 		                <td width="94%" valign="bottom"><span class="STYLE1">请假申请的任务办理</span></td>
 		              </tr>
 		            </table></td>
@@ -30,10 +30,10 @@
 		  	<td>
 		  		<form action="workflowAction_submitTask.action" method="POST">
 			  		<div align="left" class="STYLE21">
-				 		<input type="hidden" name="taskId"/>
-				 		请假天数:<input type="text" name="days" value="1" disabled="true" style="width: 200px;"/><br/>
-				 		请假原因:<input type="text" name="content" value="事假" disabled="true" style="width: 800px;"/><br/>
-				 		请假备注:<textarea name="remark" disabled="true" cols="30" rows="2">出国旅游</textarea><br/>
+				 		<input type="hidden" name="taskId" value="${taskId}"/>
+				 		请假天数:<input type="text" name="days" value="${leaveBill.days}" disabled="true" style="width: 200px;"/><br/>
+				 		请假原因:<input type="text" name="content" value="${leaveBill.content}" disabled="true" style="width: 800px;"/><br/>
+				 		请假备注:<textarea name="remark" disabled="true" cols="30" rows="2">${leaveBill.remark}</textarea><br/>
 				 		批&emsp;&emsp;注:<textarea name="comment" cols="50" rows="5"></textarea><br/>
 				 		<!-- 使用连线的名称作为按钮 -->
 				 			<input type="submit" name="outcome" value="提交" class="button_ok"/>
@@ -53,7 +53,7 @@
 			          <tr>
 			            <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
 			              <tr>
-			                <td width="6%" height="19" valign="bottom"><div align="center"><img src="${pageContext.request.contextPath }/images/tb.gif" width="14" height="14" /></div></td>
+			                <td width="6%" height="19" valign="bottom"><div align="center"><img src="/images/tb.gif" width="14" height="14" /></div></td>
 			                <td width="94%" valign="bottom"><span class="STYLE1">显示请假申请的批注信息</span></td>
 			              </tr>
 			            </table></td>
@@ -89,7 +89,7 @@
 			          <tr>
 			            <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
 			              <tr>
-			                <td width="6%" height="19" valign="bottom"><div align="center"><img src="${pageContext.request.contextPath }/images/tb.gif" width="14" height="14" /></div></td>
+			                <td width="6%" height="19" valign="bottom"><div align="center"><img src="/images/tb.gif" width="14" height="14" /></div></td>
 			                <td width="94%" valign="bottom"><span><b>暂时没有批注信息</b></span></td>
 			              </tr>
 			            </table></td>

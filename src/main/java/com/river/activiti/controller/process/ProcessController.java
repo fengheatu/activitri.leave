@@ -1,38 +1,26 @@
 package com.river.activiti.controller.process;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import org.activiti.bpmn.converter.BpmnXMLConverter;
-import org.activiti.bpmn.model.BpmnModel;
-import org.activiti.editor.language.json.converter.BpmnJsonConverter;
+import com.river.activiti.model.pojo.Employee;
+import com.river.activiti.model.pojo.LeaveBill;
+import com.river.activiti.service.ProcessService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.repository.Deployment;
-import org.activiti.engine.repository.Model;
 import org.activiti.engine.repository.ProcessDefinition;
-import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.jmx.LoggerDynamicMBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
-import javax.imageio.ImageIO;
-import javax.jws.WebParam;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.Charset;
 import java.util.List;
 
 /**
@@ -42,18 +30,15 @@ import java.util.List;
  **/
 @Controller
 @RequestMapping("/deploy")
-public class DeployController {
+public class ProcessController {
 
-    private static final Logger logger = LoggerFactory.getLogger(DeployController.class);
+    private static final Logger logger = LoggerFactory.getLogger(ProcessController.class);
 
     @Resource
     private RepositoryService repositoryService;
 
     @Resource
-    private RuntimeService runtimeService;
-
-    @Resource
-    private TaskService taskService;
+    private ProcessService processService;
 
 
     /**
@@ -115,4 +100,29 @@ public class DeployController {
             e.printStackTrace();
         }
     }
+
+
+    @RequestMapping("/task/list")
+    public ModelAndView taskList(ModelAndView modelAndView,HttpServletRequest request) {
+        Employee employee = (Employee) request.getSession().getAttribute("employee");
+        if (null == employee) {
+            throw new RuntimeException("no login");
+        }
+        List<Task> tasks = processService.findTaskListByName(employee.getName());
+        modelAndView.addObject("tasks",tasks);
+        modelAndView.setViewName("workflow/task");
+         return modelAndView;
+    }
+
+    @RequestMapping("/task/details")
+    public ModelAndView handleTask(ModelAndView modelAndView,HttpServletRequest request,String taskId) {
+        LeaveBill leaveBill = processService.queryTaskDetailsByTaskId(taskId);
+        List<String> outcomeList = processService.queryOutComeListByTaskId(taskId);
+        modelAndView.addObject("leaveBill",leaveBill);
+        modelAndView.addObject("taskId",taskId);
+        modelAndView.setViewName("workflow/taskForm");
+        return modelAndView;
+    }
+
+
 }

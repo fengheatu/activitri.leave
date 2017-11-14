@@ -31,15 +31,6 @@ public class LeaveController {
 
     private static final Logger logger = LoggerFactory.getLogger(LeaveController.class);
 
-    @Resource
-    private RepositoryService repositoryService;
-
-    @Resource
-    private RuntimeService runtimeService;
-
-    @Resource
-    private TaskService taskService;
-
 
     @Resource
     private LeaveBillService leaveBillService;
@@ -100,6 +91,7 @@ public class LeaveController {
         leaveBillService.startProcess(leaveBill);
         modelAndView.addObject("leaveBills",leaveBillService.findLeaveBillByUserId(employee.getId()));
         modelAndView.setViewName("leaveBill/list");
+        return modelAndView;
     }
 
 }

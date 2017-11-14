@@ -56,7 +56,7 @@ public class LeaveBillServiceImpl implements LeaveBillService {
         //流程管理业务
         String objId = key +":" + leaveBill.getId();
         Map<String,Object> vars = new HashMap<String,Object>();
-        vars.put("inputUser",employeeMapper.selectByPrimaryKey(leaveBill.getId()).getName());
+        vars.put("inputUser",employeeMapper.selectByPrimaryKey(leaveBill.getUserId()).getName());
         vars.put("objId",objId);
         runtimeService.startProcessInstanceByKey(key,objId,vars);
     }
