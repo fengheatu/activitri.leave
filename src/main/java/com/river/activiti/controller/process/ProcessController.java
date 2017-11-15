@@ -114,15 +114,37 @@ public class ProcessController {
          return modelAndView;
     }
 
+    /**
+     *
+     * @param modelAndView
+     * @param request
+     * @param taskId
+     * @return
+     */
     @RequestMapping("/task/details")
     public ModelAndView handleTask(ModelAndView modelAndView,HttpServletRequest request,String taskId) {
         LeaveBill leaveBill = processService.queryTaskDetailsByTaskId(taskId);
         List<String> outcomeList = processService.queryOutComeListByTaskId(taskId);
+        modelAndView.addObject("outcomeList",outcomeList);
         modelAndView.addObject("leaveBill",leaveBill);
         modelAndView.addObject("taskId",taskId);
         modelAndView.setViewName("workflow/taskForm");
         return modelAndView;
     }
+
+    @RequestMapping("/complete/task")
+    public ModelAndView completeTask(Long leaveBillId,HttpServletRequest request,ModelAndView modelAndView,String taskId,String comment,String outcome) {
+        processService.completeTask(leaveBillId,taskId,comment,outcome);
+        modelAndView.setViewName("workflow/task");
+        Employee employee = (Employee) request.getSession().getAttribute("employee");
+        if (null == employee) {
+            throw new RuntimeException("no login");
+        }
+        List<Task> tasks = processService.findTaskListByName(employee.getName());
+        modelAndView.addObject("tasks",tasks);
+        return modelAndView;
+    }
+
 
 
 }

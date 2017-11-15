@@ -16,4 +16,6 @@ public interface ProcessService {
     LeaveBill queryTaskDetailsByTaskId(String taskId);
 
     List<String> queryOutComeListByTaskId(String taskId);
+
+    void completeTask(Long leaveBillId,String taskId, String comment, String outcome);
 }

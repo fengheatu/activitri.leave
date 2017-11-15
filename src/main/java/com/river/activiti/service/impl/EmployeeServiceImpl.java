@@ -13,7 +13,7 @@ import javax.xml.ws.ServiceMode;
  * desc:
  */
 
-@Service
+@Service()
 public class EmployeeServiceImpl implements EmployeeService {
 
     @Resource

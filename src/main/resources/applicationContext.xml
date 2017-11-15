@@ -8,11 +8,11 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
 		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd">
 
+    <!--启动注解-->
+    <mvc:annotation-driven/>
     <!--自动扫描-->
     <context:component-scan base-package="com.river.activiti"/>
 
-    <!--启动注解-->
-    <mvc:annotation-driven/>
 
     <!--引入配置文件-->
     <context:property-placeholder location="classpath:druid.properties"/>
@@ -23,6 +23,8 @@
         <property name="username" value="${druid.jdbc.username}"/>
         <property name="password" value="${druid.jdbc.password}"/>
     </bean>
+
+    <bean id="employeeService" class="com.river.activiti.service.impl.EmployeeServiceImpl"/>
 
     <!--事务管理器-->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
