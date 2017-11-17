@@ -17,3 +17,11 @@ CREATE TABLE `leave_bill` (
   `state` int(4) DEFAULT NULL COMMENT ' 0初始录入,1.开始审批,2为审批完成',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+
+INSERT INTO `employee` VALUES (1, '张三', '123', 'zhangsan@163.com', '1', 2);
+INSERT INTO `employee` VALUES (2, '李四', '123', 'lisi@163.com', '1', 3);
+INSERT INTO `employee` VALUES (3, '王五', '123', 'wangwu@163.com', '1', 4);
+INSERT INTO `employee` VALUES (4, '赵六', '123', 'zhaoliu@163.com', '1', 5);
+INSERT INTO `employee` VALUES (5, '李七', '123', 'liqi@163.com', '1', 6);
+
