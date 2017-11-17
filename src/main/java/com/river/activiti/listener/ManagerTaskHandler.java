@@ -22,7 +22,6 @@ public class ManagerTaskHandler implements TaskListener {
 
         /*activiti引擎将会在内部用Class.newInstance(..)方法创建一个该类的对象，
         这个对象并不spring容器管理，所以无法获取spring容器给我们生成的bean；*/
-
         ApplicationContext ac = new FileSystemXmlApplicationContext("classpath:applicationContext.xml");
         EmployeeService employeeService = (EmployeeService) ac.getBean("employeeService");
 
@@ -30,5 +29,6 @@ public class ManagerTaskHandler implements TaskListener {
         Employee employee = (Employee) request.getSession().getAttribute("employee");
         Employee manager = employeeService.findEmployeeById(employee.getManagerId());
         delegateTask.setAssignee(manager.getName());
+
     }
 }

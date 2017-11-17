@@ -36,7 +36,7 @@ public class LeaveController {
     private LeaveBillService leaveBillService;
 
     /**
-     *
+     *跳转到假单填写页面
      * @return
      */
     @RequestMapping("/addView")
@@ -46,7 +46,7 @@ public class LeaveController {
     }
 
     /**
-     *
+     *假单列表
      * @param request
      * @param modelAndView
      * @return
@@ -64,7 +64,7 @@ public class LeaveController {
     }
 
     /**
-     *
+     *添加假单信息
      * @param request
      * @param modelAndView
      * @param leaveBill
@@ -81,6 +81,14 @@ public class LeaveController {
     return modelAndView;
     }
 
+
+    /**
+     * 启动流程，业务与流程关联
+     * @param request
+     * @param modelAndView
+     * @param id
+     * @return
+     */
     @RequestMapping("/startProcess")
     public ModelAndView startProcess(HttpServletRequest request,ModelAndView modelAndView,Long id ){
         Employee employee = (Employee) request.getSession().getAttribute("employee");

@@ -42,7 +42,7 @@ public class ProcessController {
 
 
     /**
-     *@desc:
+     *@desc:流程定义列表
      *@create by he.feng
      *@date 2017/11/7 10:08
      * @param redirectAttributes
@@ -74,7 +74,7 @@ public class ProcessController {
 
 
     /**
-     *
+     *显示流程图
      * @param deploymentId
      * @param imageName
      * @param request
@@ -102,6 +102,12 @@ public class ProcessController {
     }
 
 
+    /**
+     * 查询当前登录人员任务列表
+     * @param modelAndView
+     * @param request
+     * @return
+     */
     @RequestMapping("/task/list")
     public ModelAndView taskList(ModelAndView modelAndView,HttpServletRequest request) {
         Employee employee = (Employee) request.getSession().getAttribute("employee");
@@ -115,7 +121,7 @@ public class ProcessController {
     }
 
     /**
-     *
+     *根据任务id查询任务详情
      * @param modelAndView
      * @param request
      * @param taskId
@@ -132,6 +138,17 @@ public class ProcessController {
         return modelAndView;
     }
 
+
+    /**
+     * 完成任务
+     * @param leaveBillId
+     * @param request
+     * @param modelAndView
+     * @param taskId
+     * @param comment
+     * @param outcome
+     * @return
+     */
     @RequestMapping("/complete/task")
     public ModelAndView completeTask(Long leaveBillId,HttpServletRequest request,ModelAndView modelAndView,String taskId,String comment,String outcome) {
         processService.completeTask(leaveBillId,taskId,comment,outcome);

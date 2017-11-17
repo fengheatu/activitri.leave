@@ -34,6 +34,13 @@ public class ModuleController {
     @Autowired
     private RepositoryService repositoryService;
 
+
+    /**
+     * 创建model模型
+     *
+     * @param request
+     * @param response
+     */
     @RequestMapping(value = "create")
     public void create(HttpServletRequest request, HttpServletResponse response) {
         try {
@@ -60,7 +67,13 @@ public class ModuleController {
         }
     }
 
-	@RequestMapping("/download/bpmn")
+
+    /**
+     * 下载 bpmn文件
+     * @param modelId
+     * @throws IOException
+     */
+    @RequestMapping("/download/bpmn")
     public void downBpmn(String modelId) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         Model modelData = repositoryService.getModel(modelId);
@@ -74,8 +87,15 @@ public class ModuleController {
         os.write(bpmnBytes);
     }
 
+
+    /**
+     * 修改流程图
+     * @param request
+     * @param response
+     * @param modleId
+     */
     @RequestMapping("/modify/process/{modelId}")
-    public void modifyProcess(HttpServletRequest request,HttpServletResponse response,@PathVariable("modelId") String modleId) {
+    public void modifyProcess(HttpServletRequest request, HttpServletResponse response, @PathVariable("modelId") String modleId) {
         try {
             response.sendRedirect(request.getContextPath() + "/modeler.html?modelId=" + modleId);
         } catch (IOException e) {
