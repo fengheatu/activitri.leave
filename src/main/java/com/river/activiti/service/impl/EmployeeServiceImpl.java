@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.xml.ws.ServiceMode;
+import java.util.List;
 
 /**
  * create by river  2017/11/12
@@ -22,6 +23,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee findEmployeeById(Long id) {
-        return employeeMapper.selectByPrimaryKey(id);
+        return employeeMapper.findEmployeeById(id);
+    }
+
+    @Override
+    public List<String> findEmployeeByRole(String role) {
+        return employeeMapper.findEmployeeByRole(role);
     }
 }

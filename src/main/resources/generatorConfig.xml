@@ -46,13 +46,19 @@
 
         <!-- 配置不生成Exmaple文件 -->
         <!--对应数据库表 mysql可以加入主键自增 字段命名 忽略某字段等-->
-        <table tableName="employee" domainObjectName="Employee"
+        <table tableName="backend_role" domainObjectName="BackendRole"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
         </table>
 
-        <table tableName="leave_bill" domainObjectName="LeaveBill"
+        <table tableName="backend_user" domainObjectName="BackendUser"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+
+        <table tableName="backend_user_role" domainObjectName="BackendUserRole"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">

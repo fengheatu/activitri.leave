@@ -14,6 +14,16 @@
         <property name="transactionManager" ref="transactionManager"/>
         <property name="databaseSchemaUpdate" value="true"/>
         <property name="jobExecutorActivate" value="true"/>
+        <property name="customSessionFactories">
+            <list>
+                <bean class="com.river.activiti.group.config.CustomGroupEntityManagerFactory">
+                    <property name="customGroupEntityManager" ref="customGroupEntityManager"/>
+                </bean>
+                <bean class="com.river.activiti.group.config.CustomUserEntityManagerFactory">
+                    <property name="customUserEntityManager" ref="customUserEntityManager"/>
+                </bean>
+            </list>
+        </property>
     </bean>
 
     <!--引擎-->

@@ -36,12 +36,14 @@
 		                <td width="10" valign="bottom">&nbsp;</td>
 		                <td height="24" colspan="2" valign="bottom">
 		                	<select name="id">
-		                		<option value="1">张三</option>
-		                		<option value="2">李四</option>
-		                		<option value="3">王五</option>
-		                		<option value="4">赵六</option>
-		                		<option value="5">李七</option>
-		                	</select><br/>  
+		                		<option value="10002">张三</option>
+		                		<option value="10004">李四</option>
+		                		<option value="10005">王五</option>
+		                		<option value="10006">赵六</option>
+		                		<option value="10007">李七</option>
+		                		<option value="10008">李ba</option>
+		                		<option value="10009">李jiu</option>
+		                	</select><br/>
 		                </td>
 		              </tr>
 		              

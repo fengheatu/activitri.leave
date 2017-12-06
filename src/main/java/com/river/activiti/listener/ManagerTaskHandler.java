@@ -5,10 +5,12 @@ import com.river.activiti.model.pojo.Employee;
 import com.river.activiti.service.EmployeeService;
 import org.activiti.engine.delegate.DelegateTask;
 import org.activiti.engine.delegate.TaskListener;
+import org.activiti.engine.task.Task;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @author: he.feng
@@ -27,8 +29,8 @@ public class ManagerTaskHandler implements TaskListener {
 
         HttpServletRequest request = ServletFilter.localRequest.get();
         Employee employee = (Employee) request.getSession().getAttribute("employee");
-        Employee manager = employeeService.findEmployeeById(employee.getManagerId());
-        delegateTask.setAssignee(manager.getName());
+        List<String> manager = employeeService.findEmployeeByRole(delegateTask.getTaskDefinitionKey());
+        delegateTask.addCandidateUsers(manager);
 
     }
 }

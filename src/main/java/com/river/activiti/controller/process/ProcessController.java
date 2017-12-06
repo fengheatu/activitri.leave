@@ -1,8 +1,11 @@
 package com.river.activiti.controller.process;
 
+import com.river.activiti.model.pojo.BackendRole;
+import com.river.activiti.model.pojo.BackendUser;
 import com.river.activiti.model.pojo.Employee;
 import com.river.activiti.model.pojo.LeaveBill;
 import com.river.activiti.service.ProcessService;
+import com.river.activiti.utils.Varible;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
@@ -22,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author: he.feng
@@ -110,11 +114,11 @@ public class ProcessController {
      */
     @RequestMapping("/task/list")
     public ModelAndView taskList(ModelAndView modelAndView,HttpServletRequest request) {
-        Employee employee = (Employee) request.getSession().getAttribute("employee");
-        if (null == employee) {
+        BackendUser backendUser = (BackendUser) request.getSession().getAttribute("backendUser");
+        if (null == backendUser) {
             throw new RuntimeException("no login");
         }
-        List<Task> tasks = processService.findTaskListByName(employee.getName());
+        List<Task> tasks = processService.findTaskListByName(String.valueOf(backendUser.getId()));
         modelAndView.addObject("tasks",tasks);
         modelAndView.setViewName("workflow/task");
          return modelAndView;
@@ -130,11 +134,18 @@ public class ProcessController {
     @RequestMapping("/task/details")
     public ModelAndView handleTask(ModelAndView modelAndView,HttpServletRequest request,String taskId) {
         LeaveBill leaveBill = processService.queryTaskDetailsByTaskId(taskId);
-        List<String> outcomeList = processService.queryOutComeListByTaskId(taskId);
-        modelAndView.addObject("outcomeList",outcomeList);
+        Map<String,Object> variables = processService.getVarbles(taskId);
+        modelAndView.addObject("variables",variables);
         modelAndView.addObject("leaveBill",leaveBill);
         modelAndView.addObject("taskId",taskId);
         modelAndView.setViewName("workflow/taskForm");
+        return modelAndView;
+    }
+
+    @RequestMapping("/task/claim")
+    public ModelAndView claim(ModelAndView modelAndView,String taskId,HttpServletRequest request) {
+        BackendUser backendUser = (BackendUser) request.getSession().getAttribute("backendUser");
+        processService.claim(taskId,backendUser.getId());
         return modelAndView;
     }
 
@@ -146,18 +157,18 @@ public class ProcessController {
      * @param modelAndView
      * @param taskId
      * @param comment
-     * @param outcome
+     * @param
      * @return
      */
     @RequestMapping("/complete/task")
-    public ModelAndView completeTask(Long leaveBillId,HttpServletRequest request,ModelAndView modelAndView,String taskId,String comment,String outcome) {
-        processService.completeTask(leaveBillId,taskId,comment,outcome);
+    public ModelAndView completeTask(Long leaveBillId, HttpServletRequest request, ModelAndView modelAndView, String taskId, String comment, Varible varible) {
+        processService.completeTask(leaveBillId,taskId,comment,varible);
         modelAndView.setViewName("workflow/task");
-        Employee employee = (Employee) request.getSession().getAttribute("employee");
-        if (null == employee) {
+        BackendUser backendUser = (BackendUser) request.getSession().getAttribute("backendUser");
+        if (null == backendUser) {
             throw new RuntimeException("no login");
         }
-        List<Task> tasks = processService.findTaskListByName(employee.getName());
+        List<Task> tasks = processService.findTaskListByName(String.valueOf(backendUser.getId()));
         modelAndView.addObject("tasks",tasks);
         return modelAndView;
     }

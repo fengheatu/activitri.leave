@@ -143,4 +143,20 @@
       manager_id = #{managerId,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <!---->
+  <select id="findEmployeeByRole" resultType="string">
+    SELECT name
+    FROM employee
+    WHERE role = #{role}
+  </select>
+
+  <select id="findEmployeeById" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM employee
+    WHERE id = #{id}
+  </select>
+
+  <!---->
 </mapper>

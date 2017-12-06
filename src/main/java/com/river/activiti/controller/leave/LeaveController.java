@@ -1,6 +1,7 @@
 package com.river.activiti.controller.leave;
 
 import com.river.activiti.dao.mapper.LeaveBillMapper;
+import com.river.activiti.model.pojo.BackendUser;
 import com.river.activiti.model.pojo.Employee;
 import com.river.activiti.model.pojo.LeaveBill;
 import com.river.activiti.service.LeaveBillService;
@@ -36,7 +37,8 @@ public class LeaveController {
     private LeaveBillService leaveBillService;
 
     /**
-     *跳转到假单填写页面
+     * 跳转到假单填写页面
+     *
      * @return
      */
     @RequestMapping("/addView")
@@ -46,58 +48,61 @@ public class LeaveController {
     }
 
     /**
-     *假单列表
+     * 假单列表
+     *
      * @param request
      * @param modelAndView
      * @return
      */
     @RequestMapping("/list")
-    public ModelAndView list(HttpServletRequest request,ModelAndView modelAndView) {
-        Employee employee = (Employee) request.getSession().getAttribute("employee");
-        if (employee == null){
+    public ModelAndView list(HttpServletRequest request, ModelAndView modelAndView) {
+        BackendUser backendUser = (BackendUser) request.getSession().getAttribute("backendUser");
+        if (backendUser == null) {
             throw new RuntimeException("没登录");
         }
-        List<LeaveBill> leaveBills = leaveBillService.findLeaveBillByUserId(employee.getId());
-        modelAndView.addObject("leaveBills",leaveBills);
+        List<LeaveBill> leaveBills = leaveBillService.findLeaveBillByUserId(backendUser.getId());
+        modelAndView.addObject("leaveBills", leaveBills);
         modelAndView.setViewName("leaveBill/list");
         return modelAndView;
     }
 
     /**
-     *添加假单信息
+     * 添加假单信息
+     *
      * @param request
      * @param modelAndView
      * @param leaveBill
      * @return
      */
     @RequestMapping("/add")
-    public ModelAndView  add(HttpServletRequest request,ModelAndView modelAndView,LeaveBill leaveBill) {
-    Employee employee = (Employee) request.getSession().getAttribute("employee");
-    leaveBill.setState(0);
-    leaveBill.setUserId(employee.getId());
-    leaveBillService.addLeaveBill(leaveBill);
-    modelAndView.addObject("leaveBills",leaveBillService.findLeaveBillByUserId(employee.getId()));
-    modelAndView.setViewName("leaveBill/list");
-    return modelAndView;
+    public ModelAndView add(HttpServletRequest request, ModelAndView modelAndView, LeaveBill leaveBill) {
+        BackendUser backendUser = (BackendUser) request.getSession().getAttribute("backendUser");
+        leaveBill.setState(0);
+        leaveBill.setUserId(backendUser.getId());
+        leaveBillService.addLeaveBill(leaveBill);
+        modelAndView.addObject("leaveBills", leaveBillService.findLeaveBillByUserId(backendUser.getId()));
+        modelAndView.setViewName("leaveBill/list");
+        return modelAndView;
     }
 
 
     /**
      * 启动流程，业务与流程关联
+     *
      * @param request
      * @param modelAndView
      * @param id
      * @return
      */
     @RequestMapping("/startProcess")
-    public ModelAndView startProcess(HttpServletRequest request,ModelAndView modelAndView,Long id ){
-        Employee employee = (Employee) request.getSession().getAttribute("employee");
+    public ModelAndView startProcess(HttpServletRequest request, ModelAndView modelAndView, Long id) {
+        BackendUser backendUser = (BackendUser) request.getSession().getAttribute("backendUser");
         LeaveBill leaveBill = new LeaveBill();
         leaveBill.setId(id);
         leaveBill.setState(1);
-        leaveBill.setUserId(employee.getId());
+        leaveBill.setUserId(backendUser.getId());
         leaveBillService.startProcess(leaveBill);
-        modelAndView.addObject("leaveBills",leaveBillService.findLeaveBillByUserId(employee.getId()));
+        modelAndView.addObject("leaveBills", leaveBillService.findLeaveBillByUserId(backendUser.getId()));
         modelAndView.setViewName("leaveBill/list");
         return modelAndView;
     }

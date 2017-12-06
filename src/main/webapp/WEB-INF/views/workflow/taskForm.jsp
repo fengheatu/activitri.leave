@@ -37,9 +37,10 @@
 				 		请假备注:<textarea name="remark" disabled="true" cols="30" rows="2">${leaveBill.remark}</textarea><br/>
 				 		批&emsp;&emsp;注:<textarea name="comment" cols="50" rows="5"></textarea><br/>
 				 		<!-- 使用连线的名称作为按钮 -->
-						<c:forEach var="outcome" items="${outcomeList}">
-				 			<input type="submit" name="outcome" value="${outcome}" class="button_ok"/>
-						</c:forEach>
+						<input type="hidden" name="key" value="pass"/>
+						<input type="submit" name="value" value="true" class="button_ok" >
+						<input type="submit" name="value" value="false" class="button_ok"/>
+
 			 		</div>
 			 	</form>
 		  	</td>

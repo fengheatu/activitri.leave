@@ -1,5 +1,7 @@
 package com.river.activiti.controller.user;
 
+import com.river.activiti.dao.mapper.BackendUserMapper;
+import com.river.activiti.model.pojo.BackendUser;
 import com.river.activiti.model.pojo.Employee;
 import com.river.activiti.service.EmployeeService;
 import org.slf4j.Logger;
@@ -27,6 +29,9 @@ public class LoginController {
     @Resource
     private EmployeeService employeeService;
 
+    @Resource
+    private BackendUserMapper backendUserMapper;
+
 
 
     /**
@@ -36,8 +41,8 @@ public class LoginController {
      */
     @RequestMapping("login")
     public String login(Long id, HttpServletRequest request) {
-        Employee employee = employeeService.findEmployeeById(id);
-        request.getSession().setAttribute("employee",employee);
+        BackendUser backendUser = backendUserMapper.selectByPrimaryKey(id);
+        request.getSession().setAttribute("backendUser",backendUser);
         return "main";
     }
 
